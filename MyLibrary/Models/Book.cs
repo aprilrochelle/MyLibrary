@@ -11,14 +11,19 @@ namespace MyLibrary.Models
         [Key]
         public int BookId { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
         [Required]
         public string Author { get; set; }
 
+        [Required]
         public string ISBN { get; set; }
 
-        public bool CheckedOut { get; set; }
+        [Display (Name ="Patron")]
+        public int? PatronId { get; set; }
+
+        public Patron Patron { get; set; }
 
         [Display (Name ="Library")]
         public int LibraryId { get; set; }

@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.ISBN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckedOut)
+                @Html.DisplayNameFor(model => model.Patron)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Library)
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.ISBN)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CheckedOut)
+                @Html.DisplayFor(modelItem => item.PatronId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Library.LibraryId)

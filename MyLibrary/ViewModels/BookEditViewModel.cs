@@ -14,10 +14,30 @@ namespace MyLibrary.ViewModels
 
         public List<SelectListItem> Libraries { get; set; }
 
+        public List<SelectListItem> Patrons { get; set; }
+
         public BookEditViewModel(ApplicationDbContext context)
         {
             Libraries = context.Library.Select(library =>
             new SelectListItem { Text = library.Name, Value = library.LibraryId.ToString() }).ToList();
+
+            Libraries.Insert(0, new SelectListItem
+            {
+                Text = "No Library Selected",
+                Value = "0"
+            });
+
+            Patrons = context.Patron.Select(p => new SelectListItem
+            {
+                Text = p.FirstName + " " + p.LastName,
+                Value = p.PatronId.ToString()
+            }).ToList();
+
+            Patrons.Insert(0, new SelectListItem
+            {
+                Text = "No Patron Selected",
+                Value = "0"
+            });
         }
     }
 }

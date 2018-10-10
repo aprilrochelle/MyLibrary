@@ -12,5 +12,6 @@ namespace MyLibrary.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Library> Library { get; set; }
         public DbSet<Book> Book { get; set; }
+        public DbSet<Patron> Patron { get; set; }
     }
 }
