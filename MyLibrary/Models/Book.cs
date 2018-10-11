@@ -25,6 +25,7 @@ namespace MyLibrary.Models
 
         public Patron Patron { get; set; }
 
+        [Range(1, int.MaxValue)]
         [Display (Name ="Library")]
         public int LibraryId { get; set; }
 

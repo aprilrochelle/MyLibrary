@@ -11,9 +11,18 @@ namespace MyLibrary.Models
         [Key]
         public int PatronId { get; set; }
 
+        [Required]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Display(Name = "Primary Branch")]
+        public int? LibraryId { get; set; }
+
+        public Library Library { get; set; }
 
         public virtual ICollection<Book> BooksCheckedOut { get; set; }
     }

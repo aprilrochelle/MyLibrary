@@ -1,4 +1,4 @@
-﻿@model MyLibrary.Models.Patron
+﻿@model MyLibrary.ViewModels.PatronDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,20 +11,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Patron.FirstName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Patron.FirstName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Patron.LastName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Patron.LastName)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Patron.LibraryId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Patron.LibraryId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentBooks)
+        </dt>
+        @foreach(var book in Model.CurrentBooks)
+        {
+            <dd>
+                @Html.DisplayFor(modelbook => book.Title)
+            </dd>
+        }
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.PatronId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Patron.PatronId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

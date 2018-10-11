@@ -61,6 +61,11 @@ namespace MyLibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Book book)
         {
+            if (book.PatronId == 0)
+            {
+                book.PatronId = null;
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(book);
@@ -111,6 +116,11 @@ namespace MyLibrary.Controllers
             if (book.PatronId == 0)
             {
                 book.PatronId = null;
+            }
+
+            if (book.LibraryId == 0)
+            {
+                return RedirectToAction(nameof(Edit));
             }
 
             if (ModelState.IsValid)

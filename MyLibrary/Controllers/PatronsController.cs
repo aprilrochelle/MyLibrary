@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyLibrary.Data;
 using MyLibrary.Models;
+using MyLibrary.ViewModels;
 
 namespace MyLibrary.Controllers
 {
@@ -39,14 +40,20 @@ namespace MyLibrary.Controllers
             {
                 return NotFound();
             }
+            {
+                PatronDetailsViewModel patronDetailsViewModel = new PatronDetailsViewModel(_context, patron);
 
-            return View(patron);
+                return View(patronDetailsViewModel);
+            }
+           
         }
 
         // GET: Patrons/Create
         public IActionResult Create()
         {
-            return View();
+            PatronCreateViewModel patronCreateViewModel = new PatronCreateViewModel(_context);
+
+            return View(patronCreateViewModel);
         }
 
         // POST: Patrons/Create
@@ -54,15 +61,27 @@ namespace MyLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PatronId,FirstName,LastName")] Patron patron)
+        public async Task<IActionResult> Create(Patron patron)
         {
+            if (patron.LibraryId == 0)
+            {
+                patron.LibraryId = null;
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(patron);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(patron);
+            {
+                PatronCreateViewModel patronCreateViewModel = new PatronCreateViewModel(_context)
+                {
+                    Patron = patron
+                };
+                return View(patronCreateViewModel);
+            }
+            
         }
 
         // GET: Patrons/Edit/5
@@ -78,7 +97,9 @@ namespace MyLibrary.Controllers
             {
                 return NotFound();
             }
-            return View(patron);
+            PatronEditViewModel patronEditViewModel = new PatronEditViewModel(_context, patron);
+
+            return View(patronEditViewModel);
         }
 
         // POST: Patrons/Edit/5
@@ -86,11 +107,16 @@ namespace MyLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PatronId,FirstName,LastName")] Patron patron)
+        public async Task<IActionResult> Edit(int id, [Bind("PatronId,FirstName,LastName,LibraryId")] Patron patron)
         {
             if (id != patron.PatronId)
             {
                 return NotFound();
+            }
+
+            if (patron.LibraryId == 0)
+            {
+                patron.LibraryId = null;
             }
 
             if (ModelState.IsValid)
@@ -113,7 +139,9 @@ namespace MyLibrary.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(patron);
+            PatronEditViewModel patronEditViewModel = new PatronEditViewModel(_context, patron);
+            
+            return View(patronEditViewModel);
         }
 
         // GET: Patrons/Delete/5

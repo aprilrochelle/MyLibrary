@@ -20,5 +20,7 @@ namespace MyLibrary.Models
         public string CloseHour { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
+
+        public virtual ICollection<Library> Libraries { get; set; }
     }
 }
